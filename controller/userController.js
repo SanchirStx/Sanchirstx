@@ -62,13 +62,13 @@ exports.Login = async (req, res, next) => {
   }
 };
 
-exports.addToSave = async (req, res) => {
+exports.addToWishlist = async (req, res) => {
   const { productId } = req.body;
   const email = req.userEmail;
   try {
     const addList = await userModel.findOneAndUpdate(
       { email: email },
-      { $addToSet: { save: productId } }
+      { $addToSet: { wishlist: productId } }
     );
 
     res.status(200).json({
@@ -82,13 +82,13 @@ exports.addToSave = async (req, res) => {
     });
   }
 };
-exports.getSave = async (req, res) => {
+exports.getWishList = async (req, res) => {
   try {
     console.log(req.userEmail);
     const List = await userModel
       .findById(req.userId)
-      .select("Save")
-      .populate("Save")
+      .select("wishlist")
+      .populate("wishlist")
       .exec();
     res.status(200).json({
       success: true,
@@ -102,17 +102,17 @@ exports.getSave = async (req, res) => {
   }
 };
 
-exports.deleteSave = async (req, res) => {
+exports.deleteWishList = async (req, res) => {
   try {
     console.log(req.userEmail);
 
     const user = await userModel.findByIdAndUpdate(
       req.userId,
-      { save: [] },
+      { wishlist: [] },
       { new: true }
     )
-      .select("Save")
-      .populate("Save")
+      .select("wishlist")
+      .populate("wishlist")
       .exec();
 
     if (!user) {
@@ -122,17 +122,17 @@ exports.deleteSave = async (req, res) => {
       });
     }
 
-    if (!user.save || user.save.length === 0) {
+    if (!user.wishlist || user.wishlist.length === 0) {
       return res.status(200).json({
         success: true,
-        message: 'Save is empty',
+        message: 'Wishlist is empty',
         List: [],
       });
     }
 
     res.status(200).json({
       success: true,
-      List: user.save,
+      List: user.wishlist,
     });
   } catch (error) {
     res.status(500).json({

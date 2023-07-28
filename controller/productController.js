@@ -1,6 +1,5 @@
 const Product = require("../model/product");
 
-
 exports.createProduct = async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body);
@@ -31,17 +30,17 @@ exports.getAllProduct = async (req, res, next) => {
   }
 };
 
-exports.deleteProduct =  async (req, res) => {
+exports.deleteProduct = async (req, res,next) => {
   const name = req.body.category;
   const filename = req.file.filename;
   try {
-    const newProduct = await Category.delete({
-      product: name,
+    const newCategory = await Category.delete({
+      category: name,
       image: filename,
     });
     res.status(200).json({
       success: false,
-      newProduct,
+      newCategory,
     });
   } catch (error) {
     res.status(400).json({

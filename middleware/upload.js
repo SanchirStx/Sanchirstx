@@ -21,5 +21,5 @@ const multerFilter = (req, file, cb) => {
 exports.Upload = multer({
   storage: Storage,
   multerFilter: multerFilter,
-  limits: { fieldSize: 10000000 },
+  limits: { fieldSize: 1000000 },
 });

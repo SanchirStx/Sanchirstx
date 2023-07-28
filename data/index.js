@@ -5,4 +5,4 @@ const connetDB = async () => {
     return connet
 }
 
-module.exports = connetDB;  
+module.exports = connetDB;

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const user = Schema({
     userName:{
         type:String,
-        require:[true, "хэрэглэгчийн нэрээ оруулна уу"]
+        require:[true, "hereglegchiin ner oruul"]
     },
     email:{
         type:String,
@@ -20,7 +20,7 @@ const user = Schema({
     role:{
         type: String, enum:["admin","ordinary"], default: "ordinary"
     },  
-    save:{
+    wishlist:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"product"
     }
